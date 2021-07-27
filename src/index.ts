@@ -1,8 +1,13 @@
 import express, {Request} from "express";
-import {CreateTransactionDto} from "./types";
 import bodyParser from "body-parser";
-import {TransactionDb} from "./transactionDb";
 import * as uuid from "uuid";
+import { TransactionDb } from "./transaction-db";
+
+export interface CreateTransactionDto {
+    asset: string;
+    amount: number;
+    destinationAddress: string;
+}
 
 const app = express();
 const port = 8080;
