@@ -1,7 +1,8 @@
 import express, {Request} from "express";
 import bodyParser from "body-parser";
 import * as uuid from "uuid";
-import { TransactionDb } from "./transaction-db";
+import {TransactionDb} from "./transaction-db";
+import {rateLimiterMiddleware} from "./rate-limiter";
 
 export interface CreateTransactionDto {
     asset: string;
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(rateLimiterMiddleware);
 
 app.post("/transaction", (req: Request<any, any, CreateTransactionDto>, res) => {
     const {body} = req;
